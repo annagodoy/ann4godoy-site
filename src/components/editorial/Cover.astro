@@ -1,0 +1,25 @@
+---
+  interface Props {
+    artistName: string;
+    issueNumber: string;
+    issueTitle: string;
+    tagline?: string;
+  }
+
+  const {
+    artistName,
+    issueNumber,
+    issueTitle,
+    tagline,
+  } = Astro.props;
+---
+
+<header class="cover">
+  <p class="cover__issue">Issue {issueNumber}</p>
+
+  <h1 class="cover__artist">{artistName}</h1>
+
+  <p class="cover__title">{issueTitle}</p>
+
+  {tagline && <p class="cover__tagline">{tagline}</p>}
+</header>

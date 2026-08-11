@@ -1,0 +1,26 @@
+--- 
+  interface ContentItem {
+    id: string;
+    title: string;
+  }
+
+  interface Props {
+    items: readonly ContentItem[];
+  }
+
+  const { items } = Astro.props;
+---
+
+<nav class="contents" aria-labelledby="contents-title">
+  <h2 id="contents-title">Contents</h2>
+
+  <ol class="contents__list">
+    {
+      items.map((item) => (
+        <li class="contents__item">
+          <a href={`#${item.id}`}>{item.title}</a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>

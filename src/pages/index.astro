@@ -1,11 +1,45 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contents from '../components/editorial/Contents.astro';
+import Cover from '../components/editorial/Cover.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const contents = [
+  { id: "editorial", title: "Editorial" },
+  { id: "sets", title: "Sets" },
+  { id: "radio", title: "Te convido para um Date" },
+  { id: "maremoto", title: "Maremoto" },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="ANN4GODOY — Issue 001: Warm Graphite">
+	<Cover
+		artistName="ANN4GODOY"
+		issueNumber="001"
+		issueTitle="Warm Graphite"
+		tagline="DJ, pesquisa musical e experiências editoriais."
+	/>
+
+  <Contents items={contents} />
+
+  <main>
+    <section id="editorial" aria-labelledby="editorial-title">
+      <h2 id="editorial-title">Editorial</h2>
+      <p>Introdução e direção editorial da Issue 001.</p>
+    </section>
+
+    <section id="sets" aria-labelledby="sets-title">
+      <h2 id="sets-title">Sets</h2>
+      <p>Seleções musicais e sets da ANN4GODOY.</p>
+    </section>
+
+    <section id="radio" aria-labelledby="radio-title">
+      <h2 id="radio-title">Te convido para um Date</h2>
+      <p>Arquivo de edições do programa trimestral na Funcion.fm.</p>
+    </section>
+
+    <section id="maremoto" aria-labelledby="maremoto-title">
+      <h2 id="maremoto-title">Maremoto</h2>
+      <p>Maremoto Mar.</p>
+    </section>
+  </main>
+</BaseLayout>
