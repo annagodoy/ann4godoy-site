@@ -23,3 +23,86 @@
 
   {tagline && <p class="cover__tagline">{tagline}</p>}
 </header>
+
+<style>
+  .cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto;
+    gap: var(--space-4);
+
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: var(--page-padding);
+
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .cover__issue {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .cover__artist {
+    align-self: center;
+
+    font-family: var(--font-display);
+    font-size: min(var(--text-display), 15vw);
+    font-weight: 400;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+
+  .cover__title {
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    line-height: 0.95;
+  }
+
+  .cover__tagline {
+    max-width: var(--content-max-width);
+
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+  }
+
+  @media (min-width: 48rem) {
+    .cover {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-rows: auto 1fr auto;
+      column-gap: var(--grid-gap);
+      row-gap: var(--space-6);
+    }
+
+    .cover__issue {
+      grid-column: 1 / 4;
+      grid-row: 1;
+    }
+
+    .cover__artist {
+      grid-column: 2 / -1;
+      grid-row: 2;
+
+      justify-self: end;
+      text-align: right;
+    }
+
+    .cover__title {
+      grid-column: 1 / 8;
+      grid-row: 3;
+
+      align-self: end;
+    }
+
+    .cover__tagline {
+      grid-column: 9 / -1;
+      grid-row: 3;
+
+      align-self: end;
+    }
+  }
+</style>

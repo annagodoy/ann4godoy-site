@@ -1,4 +1,4 @@
---- 
+---
   interface ContentItem {
     id: string;
     title: string;
@@ -24,3 +24,74 @@
     }
   </ol>
 </nav>
+
+<style>
+  .contents {
+    padding: var(--section-spacing) var(--page-padding);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .contents h2 {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .contents__list {
+    margin: var(--space-6) 0 0;
+    padding-inline-start: 2.25rem;
+
+    list-style-type: decimal-leading-zero;
+  }
+
+  .contents__item {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .contents__item:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .contents__item::marker {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .contents__item a {
+    display: flex;
+    align-items: center;
+
+    min-block-size: 2.75rem;
+    padding-block: var(--space-3);
+
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    line-height: 1;
+    text-underline-offset: 0.15em;
+  }
+
+  .contents__item a:hover,
+  .contents__item a:focus-visible {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 48rem) {
+    .contents {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+    }
+
+    .contents h2 {
+      grid-column: 1 / 4;
+    }
+
+    .contents__list {
+      grid-column: 5 / -1;
+      margin-top: 0;
+    }
+  }
+</style>
