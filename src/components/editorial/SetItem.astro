@@ -1,0 +1,79 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  set: CollectionEntry<"sets">;
+}
+
+const { set } = Astro.props;
+const { title, platform, url, publishedAt } = set.data;
+
+const isoDate = publishedAt.toISOString().slice(0, 10);
+
+const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(publishedAt);
+
+const platformLabel = {
+  youtube: "YouTube",
+  soundcloud: "SoundCloud",
+}[platform];
+---
+
+<article class="set-item">
+  <p class="set-item__meta">
+    <span>{platformLabel}</span>
+    <span aria-hidden="true">·</span>
+    <time datetime={isoDate}>{formattedDate}</time>
+  </p>
+
+  <h3 class="set-item__title">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${title} — ouvir no ${platformLabel}`}
+    >
+      {title}
+    </a>
+  </h3>
+</article>
+
+<style>
+  .set-item {
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .set-item__meta {
+    display: flex;
+    gap: var(--space-2);
+
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .set-item__title {
+    margin-top: var(--space-3);
+
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .set-item__title a {
+    text-underline-offset: 0.15em;
+  }
+
+  .set-item__title a:hover,
+  .set-item__title a:focus-visible {
+    text-decoration: underline;
+  }
+</style>

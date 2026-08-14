@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contents from '../components/editorial/Contents.astro';
 import Cover from '../components/editorial/Cover.astro';
+import SetIndex from "../components/editorial/SetIndex.astro";
+
+import { getCollection } from 'astro:content';
 
 const contents = [
   { id: "editorial", title: "Editorial" },
@@ -9,6 +12,10 @@ const contents = [
   { id: "radio", title: "Te convido para um Date" },
   { id: "maremoto", title: "Maremoto" },
 ];
+
+const sets = (await getCollection("sets")).toSorted(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
 ---
 
 <BaseLayout title="ANN4GODOY — Issue 001: Warm Graphite">
@@ -27,9 +34,11 @@ const contents = [
       <p>Introdução e direção editorial da Issue 001.</p>
     </section>
 
-    <section id="sets" aria-labelledby="sets-title">
+    <section id="sets" class="sets-section" aria-labelledby="sets-title">
       <h2 id="sets-title">Sets</h2>
-      <p>Seleções musicais e sets da ANN4GODOY.</p>
+      <p>Seleções musicais e sets.</p>
+
+      <SetIndex sets={sets} />
     </section>
 
     <section id="radio" aria-labelledby="radio-title">
@@ -64,7 +73,7 @@ const contents = [
     letter-spacing: -0.04em;
   }
 
-  section p {
+  section > p {
     max-width: var(--content-max-width);
 
     color: var(--color-muted);
@@ -80,18 +89,48 @@ const contents = [
       grid-template-columns: repeat(12, minmax(0, 1fr));
       align-content: end;
       column-gap: var(--grid-gap);
+    }
+
+    section h2 {
+      grid-column: 1 / 8;
+      grid-row: 1;
+
+      align-self: end;
+    }
+
+    section > p {
+      grid-column: 9 / -1;
+      grid-row: 1;
+      align-self: end;
+    }
+
+    .sets-section {
+      align-content: start;
+    }
+
+    .sets-section h2 {
+      grid-column: 1 / 8;
+      grid-row: 1;
+    }
+
+    .sets-section > p {
+      grid-column: 9 / -1;
+      grid-row: 1;
+    }
+
+    .sets-section :global(.set-index) {
+      grid-column: 5 / -1;
+      grid-row: 2;
+
+      margin-top: var(--section-spacing);
+    }
   }
 
-  section h2 {
-    grid-column: 1 / 8;
-    grid-row: 1;
-
-    align-self: end;
+  .sets-section {
+    align-content: start;
   }
 
-  section p {
-    grid-column: 9 / -1;
-    grid-row: 1;
-    align-self: end;
+  .sets-section :global(.set-index) {
+    margin-top: var(--space-6);
   }
 </style>
