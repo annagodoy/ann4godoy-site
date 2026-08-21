@@ -2,8 +2,9 @@
   {
     "id": "goma-sounds-2026-08-03",
     "title": "GOMA SOUNDS",
-    "platform": "youtube",
-    "url": "https://youtu.be/wN_d0OBeXSY",
+    "platform": "soundcloud",
+    "url": "https://soundcloud.com/goma-sounds/amapiano-afrobeats-r-b-mix-dj",
+    "providerId": "goma-sounds/amapiano-afrobeats-r-b-mix-dj",
     "publishedAt": "2026-08-03"
   },
   {
@@ -11,6 +12,7 @@
     "title": "CALL ROMY",
     "platform": "youtube",
     "url": "https://youtu.be/885M9vmQAVg",
+    "providerId": "885M9vmQAVg",
     "publishedAt": "2025-08-27"
   },
   {
@@ -18,6 +20,7 @@
     "title": "VÊNUS BAILE",
     "platform": "soundcloud",
     "url": "https://soundcloud.com/ann4godoy/venus-baile-galpaoquina-1608",
+    "providerId": "ann4godoy/venus-baile-galpaoquina-1608",
     "publishedAt": "2025-08-16"
   },
   {
@@ -25,6 +28,7 @@
     "title": "AFTER MAREMOTO",
     "platform": "soundcloud",
     "url": "https://soundcloud.com/ann4godoy/after-da-maremoto",
+    "providerId": "ann4godoy/after-da-maremoto",
     "publishedAt": "2025-06-28"
   },
   {
@@ -32,6 +36,7 @@
     "title": "BATEKOO SESSIONS",
     "platform": "soundcloud",
     "url": "https://soundcloud.com/ann4godoy/btk-sessions",
+    "providerId": "ann4godoy/btk-sessions",
     "publishedAt": "2025-04-06"
   },
   {
@@ -39,6 +44,7 @@
     "title": "MET&RALA",
     "platform": "soundcloud",
     "url": "https://soundcloud.com/ann4godoy/met-rala-2703",
+    "providerId": "ann4godoy/met-rala-2703",
     "publishedAt": "2024-03-27"
   }
 ]
