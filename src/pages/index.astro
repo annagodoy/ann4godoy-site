@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Contents from '../components/editorial/Contents.astro';
 import Cover from '../components/editorial/Cover.astro';
 import SetIndex from "../components/editorial/SetIndex.astro";
+import MaremotoIndex from '../components/editorial/MaremotoIndex.astro';
 import SetPlayer from '../components/player/SetPlayer';
 import type { PlayerSet } from '../types/set-player';
 
@@ -19,6 +20,13 @@ const sets = (await getCollection("sets")).toSorted(
   (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
 );
 
+const maremotoSessions = (
+  await getCollection("maremotoSessions")
+).toSorted(
+  (a, b) =>
+    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
 const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
   id,
   title: data.title,
@@ -26,6 +34,16 @@ const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
   providerId: data.providerId,
   url: data.url,
 }));
+
+const maremotoPlayerSets: PlayerSet[] = maremotoSessions.map(
+  ({ id, data }) => ({
+    id,
+    title: `Maremoto Sessions #${String(data.episode).padStart(2, "0")} — ${data.dj}`,
+    platform: "soundcloud",
+    providerId: data.providerId,
+    url: data.url,
+  }),
+);
 ---
 
 <BaseLayout title="ANN4GODOY — Issue 001: Warm Graphite">
@@ -49,7 +67,7 @@ const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
       <p>Seleções musicais e sets.</p>
 
       <div class="sets-section__player">
-        <SetPlayer sets={playerSets} client:visible />
+        <SetPlayer sets={playerSets} heading="Player de sets" client:visible />
       </div>
 
       <SetIndex sets={sets} />
@@ -60,9 +78,22 @@ const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
       <p>Arquivo de edições do programa trimestral na Funcion.fm.</p>
     </section>
 
-    <section id="maremoto" aria-labelledby="maremoto-title">
+    <section
+      id="maremoto"
+      class="maremoto-section"
+      aria-labelledby="maremoto-title"
+    >
       <h2 id="maremoto-title">Maremoto</h2>
-      <p>Maremoto Mar.</p>
+      <p>Sonoridades Eletro-Periféricas.</p>
+
+      <div class="maremoto-section__player">
+        <SetPlayer
+          sets={maremotoPlayerSets}
+          heading="Player Maremoto"
+          client:visible
+        />
+      </div>
+      <MaremotoIndex sessions={maremotoSessions} />
     </section>
   </main>
 </BaseLayout>
@@ -105,6 +136,18 @@ const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
   }
 
   .sets-section :global(.set-index) {
+    margin-top: var(--space-6);
+  }
+
+  .maremoto-section {
+    align-content: start;
+  }
+
+  .maremoto-section__player {
+    margin-top: var(--space-6);
+  }
+
+  .maremoto-section :global(.maremoto-index) {
     margin-top: var(--space-6);
   }
 
@@ -154,6 +197,24 @@ const playerSets: PlayerSet[] = sets.map(({ id, data }) => ({
     .sets-section :global(.set-index) {
       grid-column: 5 / -1;
       grid-row: 3;
+      margin-top: var(--space-6);
+    }
+
+    .maremoto-section {
+      align-content: start;
+    }
+
+    .maremoto-section__player {
+      grid-column: 5 / -1;
+      grid-row: 2;
+
+      margin-top: var(--section-spacing);
+    }
+
+    .maremoto-section :global(.maremoto-index) {
+      grid-column: 5 / -1;
+      grid-row: 3;
+
       margin-top: var(--space-6);
     }
   }

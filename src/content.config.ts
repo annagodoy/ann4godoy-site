@@ -24,4 +24,20 @@ const sets = defineCollection({
   ]),
 });
 
-export const collections = { sets };
+const maremotoSessions = defineCollection({
+  loader: file("src/data/maremoto-sessions.json"),
+
+  schema: z.object({
+    id: z.string().min(1),
+    episode: z.number().int().positive(),
+    publishedAt: z.coerce.date(),
+    url: z.url(),
+    providerId: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
+    dj: z.string().min(1),
+  }),
+});
+
+export const collections = {
+  sets,
+  maremotoSessions,
+};

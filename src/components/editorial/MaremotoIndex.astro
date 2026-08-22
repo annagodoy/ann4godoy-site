@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+import MaremotoSessionItem from "./MaremotoSessionItem.astro";
+
+interface Props {
+  sessions: readonly CollectionEntry<"maremotoSessions">[];
+}
+
+const { sessions } = Astro.props;
+---
+
+{
+  sessions.length > 0 ? (
+    <ol class="maremoto-index">
+      {sessions.map((session) => (
+        <li class="maremoto-index__item">
+          <MaremotoSessionItem session={session} />
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="maremoto-index__empty">Nenhum episódio publicado no momento.</p>
+  )
+}
+
+<style>
+  .maremoto-index {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .maremoto-index__item:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .maremoto-index__empty {
+    color: var(--color-muted);
+  }
+</style>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import SoundCloudPlayer from "./SoundCloudPlayer";
 import YouTubePlayer from "./YouTubePlayer";
 
@@ -6,6 +6,7 @@ import type { PlayerSet, PlayerState } from "../../types/set-player";
 
 interface Props {
   sets: readonly PlayerSet[];
+  heading?: string;
 }
 
 const platformLabels = {
@@ -13,7 +14,11 @@ const platformLabels = {
   soundcloud: "SoundCloud",
 } satisfies Record<PlayerSet["platform"], string>;
 
-export default function SetPlayer({ sets }: Props) {
+export default function SetPlayer({
+  sets,
+  heading = "Player",
+}: Props) {
+  const titleId = useId();
   const [playerState, setPlayerState] = useState<PlayerState>({
     status: "idle",
   });
@@ -23,10 +28,10 @@ export default function SetPlayer({ sets }: Props) {
   return (
     <section
       className="set-player"
-      aria-labelledby="set-player-title"
+      aria-labelledby={titleId}
     >
       <header className="set-player__header">
-        <h3 id="set-player-title">Player</h3>
+        <h3 id={titleId}>{heading}</h3>
 
         <p className="set-player__status" aria-live="polite">
           {selectedSet

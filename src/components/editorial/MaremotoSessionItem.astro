@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  session: CollectionEntry<"maremotoSessions">;
+}
+
+const { session } = Astro.props;
+const { episode, url, publishedAt, dj } = session.data;
+
+const episodeLabel = String(episode).padStart(2, "0");
+const isoDate = publishedAt.toISOString().slice(0, 10);
+
+const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(publishedAt);
+---
+
+<article class="maremoto-session">
+  <p class="maremoto-session__meta">
+    <span>Episódio {episodeLabel}</span>
+    <span aria-hidden="true">·</span>
+    <time datetime={isoDate}>{formattedDate}</time>
+  </p>
+  <h3 class="maremoto-session__title">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Maremoto Sessions episódio ${episodeLabel} — ${dj} — ouvir no SoundCloud`}
+    >
+      {dj}
+    </a>
+  </h3>
+</article>
+
+<style>
+  .maremoto-session {
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .maremoto-session__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .maremoto-session__title {
+    margin-top: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .maremoto-session__title a {
+    text-underline-offset: 0.15em;
+  }
+
+  .maremoto-session__title a:hover,
+  .maremoto-session__title a:focus-visible {
+    text-decoration: underline;
+  }
+</style>
