@@ -4,6 +4,7 @@ import Contents from '../components/editorial/Contents.astro';
 import Cover from '../components/editorial/Cover.astro';
 import SetIndex from "../components/editorial/SetIndex.astro";
 import MaremotoIndex from '../components/editorial/MaremotoIndex.astro';
+import DateInviteIndex from '../components/editorial/DateInviteIndex.astro';
 import SetPlayer from '../components/player/SetPlayer';
 import type { PlayerSet } from '../types/set-player';
 
@@ -12,7 +13,7 @@ import { getCollection } from 'astro:content';
 const contents = [
   { id: "editorial", title: "Editorial" },
   { id: "sets", title: "Sets" },
-  { id: "radio", title: "Te convido para um Date" },
+  { id: "date-invites", title: "Te convido para um Date" },
   { id: "maremoto", title: "Maremoto" },
 ];
 
@@ -22,6 +23,13 @@ const sets = (await getCollection("sets")).toSorted(
 
 const maremotoSessions = (
   await getCollection("maremotoSessions")
+).toSorted(
+  (a, b) =>
+    b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
+const dateInvites = (
+  await getCollection("dateInvites")
 ).toSorted(
   (a, b) =>
     b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
@@ -39,6 +47,16 @@ const maremotoPlayerSets: PlayerSet[] = maremotoSessions.map(
   ({ id, data }) => ({
     id,
     title: `Maremoto Sessions #${String(data.episode).padStart(2, "0")} — ${data.dj}`,
+    platform: "soundcloud",
+    providerId: data.providerId,
+    url: data.url,
+  }),
+);
+
+const dateInvitePlayerSets: PlayerSet[] = dateInvites.map(
+  ({ id, data }) => ({
+    id,
+    title: `Te convido para um Date #${String(data.episode).padStart(2, "0")} — ${data.dj}`,
     platform: "soundcloud",
     providerId: data.providerId,
     url: data.url,
@@ -73,9 +91,23 @@ const maremotoPlayerSets: PlayerSet[] = maremotoSessions.map(
       <SetIndex sets={sets} />
     </section>
 
-    <section id="radio" aria-labelledby="radio-title">
-      <h2 id="radio-title">Te convido para um Date</h2>
+    <section
+      id="date-invites"
+      class="date-invites"
+      aria-labelledby="date-invites-title"
+    >
+      <h2 id="date-invites-title">Te convido para um Date</h2>
       <p>Arquivo de edições do programa trimestral na Funcion.fm.</p>
+
+      <div class="date-invites__player">
+        <SetPlayer
+          sets={dateInvitePlayerSets}
+          heading="Player Te convido para um Date"
+          client:visible
+        />
+      </div>
+
+      <DateInviteIndex invites={dateInvites} />
     </section>
 
     <section
@@ -151,6 +183,18 @@ const maremotoPlayerSets: PlayerSet[] = maremotoSessions.map(
     margin-top: var(--space-6);
   }
 
+  .date-invites {
+    align-content: start;
+  }
+
+  .date-invites__player {
+    margin-top: var(--space-6);
+  }
+
+  .date-invites :global(.date-invite-index) {
+    margin-top: var(--space-6);
+  }
+
   /* Regras específicas para tablet/desktop: a partir de 768 px */
   @media (min-width: 48rem) {
     section {
@@ -212,6 +256,24 @@ const maremotoPlayerSets: PlayerSet[] = maremotoSessions.map(
     }
 
     .maremoto-section :global(.maremoto-index) {
+      grid-column: 5 / -1;
+      grid-row: 3;
+
+      margin-top: var(--space-6);
+    }
+
+    .date-invites {
+      align-content: start;
+    }
+
+    .date-invites__player {
+      grid-column: 5 / -1;
+      grid-row: 2;
+
+      margin-top: var(--section-spacing);
+    }
+
+    .date-invites :global(.date-invite-index) {
       grid-column: 5 / -1;
       grid-row: 3;
 

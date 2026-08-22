@@ -37,7 +37,22 @@ const maremotoSessions = defineCollection({
   }),
 });
 
+const dateInvites = defineCollection({
+  loader: file("src/data/date-invites.json"),
+
+  schema: z.object({
+    id: z.string().min(1),
+    episode: z.number().int().positive(),
+    publishedAt: z.coerce.date(),
+    dj: z.string().min(1),
+    url: z.url(),
+    providerId: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
+    description: z.string().min(1),
+  }),
+});
+
 export const collections = {
   sets,
   maremotoSessions,
+  dateInvites,
 };

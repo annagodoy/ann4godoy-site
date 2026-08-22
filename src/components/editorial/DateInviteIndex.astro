@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+import DateInviteItem from "./DateInviteItem.astro";
+
+interface Props {
+  invites: readonly CollectionEntry<"dateInvites">[];
+}
+
+const { invites } = Astro.props;
+---
+
+{
+  invites.length > 0 ? (
+    <ol class="date-invite-index">
+      {invites.map((invite) => (
+        <li class="date-invite-index__item">
+          <DateInviteItem invite={invite} />
+        </li>
+      ))}
+    </ol>
+  ) : (
+    <p class="date-invite-index__empty">Nenhum episódio publicado no momento.</p>
+  )
+}
+
+<style>
+  .date-invite-index {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .date-invite-index__empty {
+    color: var(--color-muted);
+  }
+
+  .date-invite-index__item:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+</style>

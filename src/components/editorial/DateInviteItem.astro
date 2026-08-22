@@ -1,0 +1,86 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  invite: CollectionEntry<"dateInvites">;
+}
+
+const { invite } = Astro.props;
+const { episode, publishedAt, dj, url, description } = invite.data;
+
+const episodeLabel = String(episode).padStart(2, "0");
+const isoDate = publishedAt.toISOString().slice(0, 10);
+
+const formattedDate = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(publishedAt);
+---
+
+<article class="date-invite">
+  <p class="date-invite__meta">
+    <span>Episódio {episodeLabel}</span>
+    <span aria-hidden="true">·</span>
+    <time datetime={isoDate}>{formattedDate}</time>
+  </p>
+
+  <h3 class="date-invite__title">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Te convido para um Date episódio ${episodeLabel} — ${dj} — ouvir no SoundCloud`}
+    >
+      Encontro {episodeLabel} — {dj}
+    </a>
+  </h3>
+
+  <p class="date-invite__description">{description}</p>
+</article>
+
+<style>
+  .date-invite {
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .date-invite__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .date-invite__title {
+    margin-top: var(--space-3);
+
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .date-invite__title a {
+    text-underline-offset: 0.15em;
+  }
+
+  .date-invite__title a:hover,
+  .date-invite__title a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .date-invite__description {
+    max-width: 60ch;
+    margin-top: var(--space-4);
+
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+</style>
