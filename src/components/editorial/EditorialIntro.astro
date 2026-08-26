@@ -1,0 +1,110 @@
+---
+interface Props {
+  title: string;
+  concept: string;
+  pullQuote: string;
+}
+
+const {
+  title,
+  concept,
+  pullQuote,
+} = Astro.props;
+---
+
+<div class="editorial-intro">
+  <h3>{title}</h3>
+
+  <div class="editorial-intro__release">
+    <slot name="release" />
+  </div>
+
+  <p class="editorial-intro__concept">{concept}</p>
+
+  <blockquote class="editorial-intro__quote">
+    <p>{pullQuote}</p>
+  </blockquote>
+</div>
+
+<style>
+  /* Mobile/base */
+  .editorial-intro {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .editorial-intro h3 {
+    max-width: 12ch;
+
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .editorial-intro__release,
+  .editorial-intro__concept {
+    max-width: var(--content-max-width);
+    line-height: 1.6;
+  }
+
+  .editorial-intro__release {
+    font-size: var(--text-body);
+  }
+
+  .editorial-intro__release :global(p) {
+    margin: 0;
+  }
+
+  .editorial-intro__release :global(a) {
+    text-underline-offset: 0.15em;
+  }
+
+  .editorial-intro__release :global(a:hover),
+  .editorial-intro__release :global(a:focus-visible) {
+    text-decoration: underline;
+  }
+
+  .editorial-intro__concept {
+    color: var(--color-muted);
+  }
+
+  .editorial-intro__quote {
+    max-width: 22ch;
+    margin: var(--space-6) 0 0;
+    padding-block: var(--space-6);
+    border-block: 1px solid var(--color-line);
+  }
+
+  .editorial-intro__quote p {
+    font-family: var(--font-display);
+    font-size: var(--text-heading-md);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  /* Tablet/desktop: a partir de 768 px */
+  @media (min-width: 48rem) {
+    .editorial-intro {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      column-gap: var(--grid-gap);
+    }
+
+    .editorial-intro h3 {
+      grid-column: 1 / -1;
+    }
+
+    .editorial-intro__release {
+      grid-column: 1 / 5;
+    }
+
+    .editorial-intro__concept {
+      grid-column: 5 / -1;
+    }
+
+    .editorial-intro__quote {
+      grid-column: 2 / 8;
+    }
+  }
+</style>

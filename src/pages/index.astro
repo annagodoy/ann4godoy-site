@@ -5,6 +5,7 @@ import Cover from '../components/editorial/Cover.astro';
 import SetIndex from "../components/editorial/SetIndex.astro";
 import MaremotoIndex from '../components/editorial/MaremotoIndex.astro';
 import DateInviteIndex from '../components/editorial/DateInviteIndex.astro';
+import EditorialIntro from '../components/editorial/EditorialIntro.astro';
 import SetPlayer from '../components/player/SetPlayer';
 import type { PlayerSet } from '../types/set-player';
 
@@ -62,6 +63,8 @@ const dateInvitePlayerSets: PlayerSet[] = dateInvites.map(
     url: data.url,
   }),
 );
+
+const editorialConcept = "Warm Graphite marca um período de construção, amadurecimento e apresentação de uma nova fase. Como uma superfície ainda aberta, esta primeira edição cria espaço para experimentar ideias, texturas musicais e referências contemporâneas. O grafite oferece a base; as cores surgem aos poucos, conforme cada pesquisa, encontro e seleção passa a ocupar esse território.";
 ---
 
 <BaseLayout title="ANN4GODOY — Issue 001: Warm Graphite">
@@ -75,9 +78,28 @@ const dateInvitePlayerSets: PlayerSet[] = dateInvites.map(
   <Contents items={contents} />
 
   <main>
-    <section id="editorial" aria-labelledby="editorial-title">
+    <section
+      id="editorial"
+      class="editorial-section"
+      aria-labelledby="editorial-title"
+    >
       <h2 id="editorial-title">Editorial</h2>
-      <p>Introdução e direção editorial da Issue 001.</p>
+      <EditorialIntro
+        title="Uma superfície para novas ideias"
+        concept={editorialConcept}
+        pullQuote="O grafite oferece a base; as cores surgem aos poucos."
+      >
+        <p slot="release">
+          Uma das fundadoras e idealizadoras do coletivo Maremoto (<a
+            href="https://www.instagram.com/ma.re.moto/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >@ma.re.moto</a>), <strong>ANN4GODOY</strong> iniciou sua trajetória com sets inspirados
+          em ritmos afro-diaspóricos. Sua pesquisa musical atravessa gêneros e estilos,
+          explorando a pluralidade de sua ancestralidade. Suas apresentações celebram a
+          diversidade sonora por meio de ritmos que expressam sua identidade.
+        </p>
+      </EditorialIntro>
     </section>
 
     <section id="sets" class="sets-section" aria-labelledby="sets-title">
@@ -195,6 +217,14 @@ const dateInvitePlayerSets: PlayerSet[] = dateInvites.map(
     margin-top: var(--space-6);
   }
 
+  .editorial-section {
+    align-content: start;
+  }
+
+  .editorial-section :global(.editorial-intro) {
+    margin-top: var(--space-6);
+  }
+
   /* Regras específicas para tablet/desktop: a partir de 768 px */
   @media (min-width: 48rem) {
     section {
@@ -278,6 +308,12 @@ const dateInvitePlayerSets: PlayerSet[] = dateInvites.map(
       grid-row: 3;
 
       margin-top: var(--space-6);
+    }
+
+    .editorial-section :global(.editorial-intro) {
+      grid-column: 3 / -1;
+      grid-row: 2;
+      margin-top: var(--section-spacing);
     }
   }
 </style>
