@@ -6,6 +6,7 @@ import SetIndex from "../components/editorial/SetIndex.astro";
 import MaremotoIndex from '../components/editorial/MaremotoIndex.astro';
 import DateInviteIndex from '../components/editorial/DateInviteIndex.astro';
 import EditorialIntro from '../components/editorial/EditorialIntro.astro';
+import ContactDetails from '../components/editorial/ContactDetails.astro';
 import SetPlayer from '../components/player/SetPlayer';
 import type { PlayerSet } from '../types/set-player';
 
@@ -16,6 +17,7 @@ const contents = [
   { id: "sets", title: "Sets" },
   { id: "date-invites", title: "Te convido para um Date" },
   { id: "maremoto", title: "Maremoto" },
+  { id: "contact", title: "Contato" },
 ];
 
 const sets = (await getCollection("sets")).toSorted(
@@ -149,6 +151,22 @@ const editorialConcept = "Warm Graphite marca um período de construção, amadu
       </div>
       <MaremotoIndex sessions={maremotoSessions} />
     </section>
+
+    <section
+      id="contact"
+      class="contact-section"
+      aria-labelledby="contact-title"
+    >
+      <h2 id="contact-title">Vamos criar um encontro</h2>
+
+      <p>Para bookings, colaborações e projetos, entre em contato.</p>
+
+      <ContactDetails
+        email="ann4godoy@gmail.com"
+        instagramUrl="https://www.instagram.com/ann4godoy/"
+        instagramHandle="@ann4godoy"
+      />
+    </section>
   </main>
 </BaseLayout>
 
@@ -222,6 +240,14 @@ const editorialConcept = "Warm Graphite marca um período de construção, amadu
   }
 
   .editorial-section :global(.editorial-intro) {
+    margin-top: var(--space-6);
+  }
+
+  .contact-section {
+    align-content: start;
+  }
+
+  .contact-section :global(.contact-details) {
     margin-top: var(--space-6);
   }
 
@@ -312,6 +338,12 @@ const editorialConcept = "Warm Graphite marca um período de construção, amadu
 
     .editorial-section :global(.editorial-intro) {
       grid-column: 3 / -1;
+      grid-row: 2;
+      margin-top: var(--section-spacing);
+    }
+
+    .contact-section :global(.contact-details) {
+      grid-column: 5 / -1;
       grid-row: 2;
       margin-top: var(--section-spacing);
     }
