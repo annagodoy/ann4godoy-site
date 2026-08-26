@@ -40,9 +40,29 @@ npm run astro -- dev logs
 npm run astro -- dev stop
 ```
 
+Verifique os componentes Astro, TypeScript e React:
+
+```bash
+npm run check
+```
+
 Gere o build de produção:
 
 ```bash
+npm run build
+```
+
+## Validação local
+
+Os comandos possuem responsabilidades diferentes:
+
+- `npm run check` verifica tipos e diagnósticos dos componentes;
+- `npm run build` valida o conteúdo e gera o site estático em `dist/`.
+
+Antes de concluir alterações na aplicação ou nos inventários, execute:
+
+```bash
+npm run check
 npm run build
 ```
 
