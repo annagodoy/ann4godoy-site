@@ -46,21 +46,54 @@ Gere o build de produção:
 npm run build
 ```
 
-## Estrutura inicial
+## Estrutura
 
 ```text
 src/
-├── assets/styles/
-├── components/editorial/
-├── layouts/
-└── pages/
+├── assets/styles/          # estilos globais e design tokens
+├── components/
+│   ├── editorial/          # componentes Astro estáticos
+│   └── player/             # player interativo em React
+├── data/                   # inventários JSON versionados
+├── layouts/                # estrutura HTML compartilhada
+├── pages/                  # rotas e composição das páginas
+├── types/                  # contratos TypeScript compartilhados
+└── content.config.ts       # coleções e schemas de conteúdo
 ```
+
+## Arquitetura
+
+O site segue uma arquitetura **static-first**. Astro consulta e valida o
+conteúdo durante o build e gera HTML estático para a homepage.
+
+A maior parte da interface utiliza componentes Astro sem JavaScript no
+cliente. React é usado apenas nos players interativos, hidratados com
+`client:visible`.
+
+Os embeds do SoundCloud e YouTube não são carregados no HTML inicial.
+O iframe é criado somente após uma seleção explícita da pessoa usuária.
+
+## Conteúdo
+
+Os inventários são mantidos em arquivos JSON dentro de `src/data/` e
+validados por Astro Content Collections:
+
+- `sets.json`: catálogo geral de sets;
+- `maremoto-sessions.json`: arquivo do programa Maremoto Sessions;
+- `date-invites.json`: arquivo do programa Te convido para um Date.
+
+Registros inválidos interrompem o build.
 
 ## Documentação
 
 - [Contexto do projeto](docs/PROJECT_CONTEXT.md)
-- [Tarefas](docs/tasks/AG001.md)
+- [Direção visual da Issue 001](docs/issues.md)
+- [Tarefas do projeto](docs/tasks/)
+- [Decisões de arquitetura](docs/architecture/)
 
 ## Status
 
 Em desenvolvimento — Issue 001: Warm Graphite.
+
+Conteúdo editorial, arquivos musicais, players sob demanda e contato
+profissional já estão implementados.
