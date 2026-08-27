@@ -1,5 +1,7 @@
 # ANN4GODOY
 
+[![CI](https://github.com/annagodoy/ann4godoy-site/actions/workflows/ci.yml/badge.svg)](https://github.com/annagodoy/ann4godoy-site/actions/workflows/ci.yml)
+
 Site artístico e revista digital da DJ ANN4GODOY.
 
 A primeira versão do projeto é a **Issue 001 — Warm Graphite**,
@@ -65,6 +67,19 @@ Antes de concluir alterações na aplicação ou nos inventários, execute:
 npm run check
 npm run build
 ```
+
+## Integração contínua
+
+O workflow de CI está definido em `.github/workflows/ci.yml` e é executado
+em pushes e pull requests direcionados à branch `main`.
+
+A validação remota executa:
+
+1. instalação reproduzível com `npm ci`;
+2. checagem de tipos com `npm run check`;
+3. geração estática com `npm run build`.
+
+A CI valida as alterações, mas não realiza deploy do site.
 
 ## Estrutura
 
