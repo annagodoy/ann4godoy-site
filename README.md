@@ -7,6 +7,8 @@ Site artístico e revista digital da DJ ANN4GODOY.
 A primeira versão do projeto é a **Issue 001 — Warm Graphite**,
 com uma direção visual inspirada em revistas e editoriais independentes.
 
+**Site publicado:** [ann4godoy-site.annabfgodoy.workers.dev](https://ann4godoy-site.annabfgodoy.workers.dev)
+
 ## Objetivos
 
 - Apresentar identidade artística, sets e projetos.
@@ -79,7 +81,27 @@ A validação remota executa:
 2. checagem de tipos com `npm run check`;
 3. geração estática com `npm run build`.
 
-A CI valida as alterações, mas não realiza deploy do site.
+## Deploy contínuo
+
+A versão de produção é publicada como um site estático no Cloudflare Workers:
+
+<https://ann4godoy-site.annabfgodoy.workers.dev>
+
+O Cloudflare Workers Builds acompanha a branch `main`. Após cada push, o ambiente remoto executa:
+
+```bash
+npm run check && npm run build
+```
+
+Se essas verificações forem concluídas, o conteúdo de `dist/` é publicado com:
+
+```bash
+npx wrangler deploy
+```
+
+O GitHub Actions realiza a integração contínua (CI), validando o projeto. O Cloudflare Workers Builds realiza o deploy contínuo (CD), publicando a versão aprovada.
+
+A versão atual utiliza a URL gratuita `workers.dev` e ainda não possui domínio próprio.
 
 ## Estrutura
 
